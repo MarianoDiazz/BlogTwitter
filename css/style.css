@@ -1,0 +1,214 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.navbar {
+  position: fixed;
+  /* min-height: 10rem; */
+  color: white;
+  padding: 10px;
+}
+
+.navbar a {
+  color: #161515;
+  text-decoration: none;
+  border: #161515 solid 1.5px;
+  border-radius: 10px;
+  padding: 15px;
+  list-style: none;
+}
+.navbar a:hover{
+  background-color: #1DA1F2;
+}
+
+.navbar__links {
+  display: flex;
+  flex-direction: column;
+  /* background-color: #1DA1F2; */
+  min-height: 80vh;
+}
+.navbar__links li{
+  margin-top: 30px;
+  width: 100%;
+}
+
+/* Estilos para el elemento del tweet */
+.tweet__box {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tweet__box__content {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 100px;
+  /* Establece la altura mínima deseada */
+}
+
+.tweet__box__icons {
+  font-size: 24px;
+  /* Tamaño de los iconos */
+}
+
+.tweet__box__button {
+  background-color: #1DA1F2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Estilos para los iconos */
+.tweet__box__icons i {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.sidebar {
+  background-color: #E1E8ED;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
+/* Estilos para los tweets */
+.tweets-container {
+  margin-top: 20px;
+}
+
+.tweet {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+/* Estilos para el tweet */
+.tweet {
+  background-color: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el autor del tweet */
+.tweet-author {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tweet-author img {
+  width: 40px;
+  /* Tamaño de la imagen del autor */
+  height: 40px;
+  /* Tamaño de la imagen del autor */
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.author-name {
+  font-weight: bold;
+}
+
+/* Estilos para el contenido del tweet */
+.tweet-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la hora, opción de comentar y opción de dar like */
+.tweet-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tweet-time {
+  color: #657786;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.tweet-action {
+  background: none;
+  border: none;
+  color: #657786;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* Estilos para la imagen del tweet */
+.tweet-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+
+.login-form {
+  width: 300px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.login-form h1 {
+  text-align: center;
+  color: #4ca340;
+  font-size: 24px;
+  padding: 20px 0 20px 0;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.login-form input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #4ca340;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+}
+
+.login-form .error-message {
+  text-align: center;
+  color: #ff0000;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.login-form .success-message {
+  text-align: center;
+  color: #00ff00;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+
