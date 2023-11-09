@@ -5,7 +5,6 @@ const addImgButton = document.querySelector('#add-img-button');
 
 const tweetContent = document.querySelector('#tweet-content');
 const tweetsContainer = document.querySelector('.tweets-container');
-
 const sidebar = document.querySelector('.sidebar');
 const sidebarToggle = document.querySelector('.sidebar-toggle');
 
@@ -32,36 +31,36 @@ function getPosts() {
   return JSON.parse(localStorage.getItem('posts')) || [];
 }
 
-  publishButton.addEventListener('click', function (event) {
-    event.preventDefault();
+publishButton.addEventListener('click', function (event) {
+  event.preventDefault();
 
-    const tweetContentValue = tweetContent.value.trim();
-    const username = localStorage.getItem('user');
-    const tweetImage = localStorage.getItem('tweetImage');
-    const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
+  const tweetContentValue = tweetContent.value.trim();
+  const username = localStorage.getItem('user');
+  const tweetImage = localStorage.getItem('tweetImage');
+  const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
 
-    if (tweetContentValue === '') {
-      alert('El contenido del tweet no puede estar vacío.');
-      return;
-    }
+  if (tweetContentValue === '') {
+    alert('El contenido del tweet no puede estar vacío.');
+    return;
+  }
 
-    const tweet = {
-      username,
-      content: tweetContentValue,
-      image: tweetImage,
-      date: new Date().toLocaleString(),
-      perfilImg,
-    };
+  const tweet = {
+    username,
+    content: tweetContentValue,
+    image: tweetImage,
+    date: new Date().toLocaleString(),
+    perfilImg,
+  };
 
-    createPost(username, tweetContentValue, tweetImage, tweet.date);
+  createPost(username, tweetContentValue, tweetImage, tweet.date);
 
-    const tweetElement = createTweetElement(tweet);
-    // Cambia appendChild por prepend para agregar el tweet al principio
-    tweetsContainer.prepend(tweetElement);
+  const tweetElement = createTweetElement(tweet);
+  // Cambia appendChild por prepend para agregar el tweet al principio
+  tweetsContainer.prepend(tweetElement);
 
-    tweetContent.value = '';
-    localStorage.removeItem('tweetImage');
-  });
+  tweetContent.value = '';
+  localStorage.removeItem('tweetImage');
+});
 
 // Esta función maneja el evento de añadir una imagen al tweet
 addImgButton.addEventListener('click', function () {
@@ -116,6 +115,21 @@ function createTweetElement(tweet) {
       <button class="tweet-action like-action"><i class="fa-regular fa-heart"></i></button>
     </div>
   `;
+  const likeButton = tweetElement.querySelector('.like-action');
+
+  likeButton.addEventListener('click', () => {
+    console.log('se hizo click en mg');
+  
+    // Verifica si el botón ya tiene la clase 'liked'
+    if (likeButton.classList.contains('liked')) {
+      // Si la tiene, la quita
+      likeButton.classList.remove('liked');
+    } else {
+      // Si no la tiene, la agrega
+      likeButton.classList.add('liked');
+    }
+  });
+  
 
   // console.log('Tweet element created:', tweetElement);
   return tweetElement;
