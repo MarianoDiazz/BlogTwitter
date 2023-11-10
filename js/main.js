@@ -138,3 +138,22 @@ alert('Hasta luego')
 localStorage.removeItem('login-success')
 window.location.href = './pages/login.html'
 })
+
+
+// modo oscuro
+// Selecciona el interruptor
+const darkModeSwitch = document.querySelector('#darkModeSwitch');
+
+// Añade un event listener para el evento 'change'
+darkModeSwitch.addEventListener('change', function () {
+    // Comprueba si el interruptor está activado
+    if (this.checked) {
+        // Si es así, cambia a modo oscuro
+        document.body.classList.add('modo-oscuro');
+        document.body.classList.remove('modo-claro');
+    } else {
+        // Si no, cambia a modo claro
+        document.body.classList.remove('modo-oscuro');
+        document.body.classList.add('modo-claro');
+    }
+});

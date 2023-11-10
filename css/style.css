@@ -1,23 +1,24 @@
 body {
   font-family: Arial, sans-serif;
-}
+  transition: background-color 0.5s ease, color 0.5s ease;
 
-.container {
-  padding: 20px;
 }
 
 .navbar {
   position: fixed;
-  /* min-height: 10rem; */
-  color: white;
-  padding: 10px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 18rem;
   background-color: #3498db;
   color: white;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .navbar a {
@@ -28,6 +29,7 @@ body {
   padding: 15px;
   margin-bottom: 15px;
   transition: background-color 0.3s;
+  width: 100%; /* Añadí esta propiedad */
 }
 
 .navbar a:hover {
@@ -294,4 +296,22 @@ body {
 
 .comments-container.show {
   display: block;
+}
+
+body.modo-claro {
+  background-color: white;
+  color: black;
+}
+
+body.modo-oscuro {
+  background-color: black;
+  color: white;
+}
+
+
+.btn-cambiar-modo{
+  background-color: #6EA2C4;
+  width: 12rem;
+  cursor: pointer;
+  border: transparent;
 }
