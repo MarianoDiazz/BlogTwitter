@@ -12,7 +12,7 @@ function createPost(postContent, imageUrl, date) {
   const posts = JSON.parse(localStorage.getItem('posts')) || [];
 
   const newPost = {
-    username: user.name, 
+    username: user.name,
     content: postContent,
     image: imageUrl,
     date,
@@ -34,7 +34,7 @@ publishButton.addEventListener('click', function (event) {
   const tweetContentValue = tweetContent.value.trim();
   const tweetImage = localStorage.getItem('tweetImage');
   const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
-  const username = localStorage.getItem('login-success'); 
+  const username = localStorage.getItem('login-success');
 
   if (tweetContentValue === '') {
     alert('El contenido del tweet no puede estar vacío.');
@@ -48,9 +48,9 @@ publishButton.addEventListener('click', function (event) {
     perfilImg,
   };
 
-  createPost(tweet.content, tweet.image, tweet.date); 
+  createPost(tweet.content, tweet.image, tweet.date);
   const tweetElement = createTweetElement({
-    username, 
+    username,
     ...tweet,
   });
 
@@ -130,7 +130,11 @@ function createTweetElement(tweet) {
   return tweetElement;
 }
 
-const usuarioLogeado = JSON.parse(localStorage.getItem('login-success')) || false
-if (!usuarioLogeado) {
-  window.location.href = './pages/login.html'
-}
+
+const logout = document.querySelector('#logout-button')
+logout.addEventListener('click', () => {
+console.log('se hizo click');
+alert('Hasta luego')
+localStorage.removeItem('login-success')
+window.location.href = './pages/login.html'
+})
