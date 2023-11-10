@@ -1,32 +1,29 @@
-// Aquí declaro las variables que voy a usar para seleccionar los elementos del HTML
 const logoutButton = document.querySelector('#logout-button');
 const publishButton = document.querySelector('#publish-button');
 const addImgButton = document.querySelector('#add-img-button');
-
 const tweetContent = document.querySelector('#tweet-content');
 const tweetsContainer = document.querySelector('.tweets-container');
-const sidebar = document.querySelector('.sidebar');
-const sidebarToggle = document.querySelector('.sidebar-toggle');
-
 // Aquí defino la URL de la imagen predeterminada para el perfil
 const defaultPerfilImg = 'https://img.freepik.com/vector-gratis/avatar-personaje-empresario-aislado_24877-60111.jpg?w=996&t=st=1699501372~exp=1699501972~hmac=51078fb4a29f5608ea71a9185ba340be0fc81f9a41a4ba95697a0d8c52a83ada';
 
-// Esta función crea un post con los datos del usuario y el contenido del tweet
-function createPost(username, postContent, imageUrl, date) {
+function createPost(postContent, imageUrl, date) {
   const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
-  const post = {
-    username,
+  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Usuario Anónimo' };
+  const posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+  const newPost = {
+    username: user.name, 
     content: postContent,
     image: imageUrl,
     date,
-    perfilImg, // Usa la imagen de perfil obtenida del localStorage o la predeterminada
+    perfilImg,
+    id: new Date().getTime().toString(),
+    comments: [],
   };
 
-  const posts = JSON.parse(localStorage.getItem('posts')) || [];
-  posts.push(post);
+  posts.push(newPost);
   localStorage.setItem('posts', JSON.stringify(posts));
 }
-// Esta función obtiene los posts del localStorage
 function getPosts() {
   return JSON.parse(localStorage.getItem('posts')) || [];
 }
@@ -35,9 +32,9 @@ publishButton.addEventListener('click', function (event) {
   event.preventDefault();
 
   const tweetContentValue = tweetContent.value.trim();
-  const username = localStorage.getItem('user');
   const tweetImage = localStorage.getItem('tweetImage');
   const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
+  const username = localStorage.getItem('login-success'); 
 
   if (tweetContentValue === '') {
     alert('El contenido del tweet no puede estar vacío.');
@@ -45,24 +42,24 @@ publishButton.addEventListener('click', function (event) {
   }
 
   const tweet = {
-    username,
     content: tweetContentValue,
     image: tweetImage,
     date: new Date().toLocaleString(),
     perfilImg,
   };
 
-  createPost(username, tweetContentValue, tweetImage, tweet.date);
+  createPost(tweet.content, tweet.image, tweet.date); 
+  const tweetElement = createTweetElement({
+    username, 
+    ...tweet,
+  });
 
-  const tweetElement = createTweetElement(tweet);
-  // Cambia appendChild por prepend para agregar el tweet al principio
   tweetsContainer.prepend(tweetElement);
 
   tweetContent.value = '';
   localStorage.removeItem('tweetImage');
 });
-
-// Esta función maneja el evento de añadir una imagen al tweet
+//maneja el evento de añadir una imagen al tweet
 addImgButton.addEventListener('click', function () {
   const fileInput = document.createElement('input');
   fileInput.type = 'file';
@@ -79,7 +76,7 @@ addImgButton.addEventListener('click', function () {
   fileInput.click();
 });
 
-// Esta función muestra los tweets guardados en el localStorage
+//muestra los tweets guardados en el localStorage
 function displayTweets() {
   const tweets = getPosts();
 
@@ -89,16 +86,14 @@ function displayTweets() {
   });
 }
 
-// Esta función se ejecuta cuando se carga la página
+//se ejecuta cuando se carga la página
 document.addEventListener('DOMContentLoaded', function () {
   displayTweets();
-  updateSidebarButton();
+  console.log('updateNavbarButton() ejecutada');
 });
 
-// Esta función crea un elemento HTML para mostrar un tweet
+//crea un elemento HTML para mostrar un tweet
 function createTweetElement(tweet) {
-  // console.log('Creating tweet element:', tweet);
-
   const tweetElement = document.createElement('div');
   tweetElement.classList.add('tweet');
 
@@ -119,35 +114,23 @@ function createTweetElement(tweet) {
 
   likeButton.addEventListener('click', () => {
     console.log('se hizo click en mg');
-  
-    // Verifica si el botón ya tiene la clase 'liked'
+
     if (likeButton.classList.contains('liked')) {
-      // Si la tiene, la quita
+      // Si la tiene, la quita y reemplaza 'fa-solid' por 'fa-regular'
       likeButton.classList.remove('liked');
+      likeButton.querySelector('i').classList.replace('fa-solid', 'fa-regular');
     } else {
-      // Si no la tiene, la agrega
+      // Si no la tiene, la agrega y reemplaza 'fa-regular' por 'fa-solid'
       likeButton.classList.add('liked');
+      likeButton.querySelector('i').classList.replace('fa-regular', 'fa-solid');
     }
   });
-  
 
-  // console.log('Tweet element created:', tweetElement);
+
   return tweetElement;
 }
-// Esta función comprueba si el usuario está logueado
-function isLogged() {
-  return localStorage.getItem('user') !== null;
-}
-// Esta función actualiza el botón de la sidebar según el estado del usuario
-function updateSidebarButton() {
-  if (isLogged()) {
-    logoutButton.textContent = 'Cerrar sesión';
-    logoutButton.classList.remove('btn-primary');
-    logoutButton.classList.add('btn-danger');
-  } else {
-    logoutButton.textContent = 'Iniciar sesión';
-    logoutButton.classList.remove('btn-danger');
-    logoutButton.classList.add('btn-primary');
-  }
-}
 
+const usuarioLogeado = JSON.parse(localStorage.getItem('login-success')) || false
+if (!usuarioLogeado) {
+  window.location.href = './pages/login.html'
+}

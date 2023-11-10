@@ -185,8 +185,7 @@ body {
   padding: 20px 0 20px 0;
 }
 
-.login-form input[type="email"],
-.login-form input[type="password"] {
+.login-form input {
   width: 100%;
   padding: 15px;
   border: 1px solid #ddd;
@@ -217,4 +216,13 @@ body {
   color: #00ff00;
   font-size: 14px;
   margin-bottom: 15px;
+}
+
+/* SECCION COMENTARIOS */
+.comments-container {
+  display: none;
+}
+
+.comments-container.show {
+  display: block;
 }

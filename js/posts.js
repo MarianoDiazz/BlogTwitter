@@ -1,4 +1,4 @@
-const tweets = [
+const defaultTweets = [
     {
         username: 'Rosana',
         perfilImg: 'https://img.freepik.com/foto-gratis/retrato-joven-rubio-mujer_273609-12060.jpg?w=1380&t=st=1699498143~exp=1699498743~hmac=36c70625d14b95b107252f9db676b79c4618a0730926e12c0807a8ee53342f3d',
@@ -20,6 +20,16 @@ const tweets = [
         image: 'https://images.pexels.com/photos/1371798/pexels-photo-1371798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         date: 'Hace una semana',
     },
-    // Agrega más tweets aquí
 ];
-localStorage.setItem('posts', JSON.stringify(tweets));
+
+function getDefaultTweets() {
+    return JSON.parse(localStorage.getItem('defaultTweets')) || defaultTweets;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const defaultTweets = getDefaultTweets();
+    defaultTweets.forEach(tweet => {
+        const tweetElement = createTweetElement(tweet);
+        tweetsContainer.appendChild(tweetElement);
+    });
+});
