@@ -4,50 +4,94 @@ body {
 
 }
 
+.navbar-mobile {
+  display: none;
+}
+
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 18rem;
-  background-color: #3498db;
-  color: white;
-  padding: 10px;
+  background-color: #007bff;
+  color: #ddd;
+  height: 100%;
+  /* debo ajustar luego esto */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  width: 15%;
+  max-height: 7rem;
 }
 
-.navbar a {
-  color: #161515;
-  text-decoration: none;
-  border: #161515 solid 1.5px;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
-  transition: background-color 0.3s;
-  width: 100%; /* Añadí esta propiedad */
-}
+@media (width < 500px) {
+  .navbar {
+    display: none;
+  }
 
-.navbar a:hover {
-  background-color: #1DA1F2;
+  .navbar-mobile {
+    display: flex;
+    background-color: #00ff00;
+    position: absolute;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    justify-content: center;
+  }
+
+  .navbar-mobile .navbar__links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: baseline;
+    flex-direction: row;
+    /* Para que los enlaces estén uno encima del otro */
+  }
+
+  .navbar-mobile .navbar__links a {
+    padding: 15px;
+    /* Añade un espaciado a los enlaces para mejorar la accesibilidad táctil */
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .navbar-mobile .navbar__links a:hover {
+    background-color: #1DA1F2;
+  }
+
+  /* Ajuste de estilos para el botón de logout */
+  .navbar-mobile #logout-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin-top: 10px;
+    /* Añade un margen top para separar el botón de los enlaces */
+  }
+
+  .navbar-mobile #logout-button:hover {
+    background-color: #c0392b;
+  }
 }
 
 .navbar__links {
-  display: flex;
-  flex-direction: column;
-  /* background-color: #1DA1F2; */
-  min-height: 80vh;
+  list-style: none;
+}
+
+.navbar__links a {
+  color: #f5f5f5;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 
 .navbar__links li {
-  margin-top: 30px;
-  width: 100%;
+  margin-top: 15px;
+  justify-content: center;
 }
-#logout-button {
+
+/* #logout-button {
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -60,7 +104,8 @@ body {
 
 #logout-button:hover {
   background-color: #c0392b;
-}
+} */
+
 /* tweet box */
 .tweet__box {
   background-color: white;
@@ -309,7 +354,7 @@ body.modo-oscuro {
 }
 
 
-.btn-cambiar-modo{
+.btn-cambiar-modo {
   background-color: #6EA2C4;
   width: 12rem;
   cursor: pointer;
