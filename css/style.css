@@ -15,8 +15,7 @@ body {
   height: 100%;
   /* debo ajustar luego esto */
   display: flex;
-  width: 15%;
-  max-height: 7rem;
+  /* max-height: 7rem; */
 }
 
 @media (width < 500px) {
@@ -27,7 +26,6 @@ body {
   .navbar-mobile {
     display: flex;
     background-color: #00ff00;
-    position: absolute;
     width: 100%;
     position: fixed;
     bottom: 0;
