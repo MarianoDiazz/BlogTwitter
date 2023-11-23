@@ -8,11 +8,12 @@ const defaultPerfilImg = 'https://img.freepik.com/vector-gratis/avatar-personaje
 
 function createPost(postContent, imageUrl, date) {
   const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
-  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Usuario Anónimo' };
+  // const user = JSON.parse(localStorage.getItem('user')) || { name: 'Usuario Anónimo' };
   const posts = JSON.parse(localStorage.getItem('posts')) || [];
+  const username = localStorage.getItem('usuario-logeado');
 
   const newPost = {
-    username: user.name,
+    username: username,
     content: postContent,
     image: imageUrl,
     date,
@@ -21,7 +22,7 @@ function createPost(postContent, imageUrl, date) {
     comments: [],
   };
 
-  posts.push(newPost);
+  posts.unshift(newPost);
   localStorage.setItem('posts', JSON.stringify(posts));
 }
 function getPosts() {
@@ -34,7 +35,7 @@ publishButton.addEventListener('click', function (event) {
   const tweetContentValue = tweetContent.value.trim();
   const tweetImage = localStorage.getItem('tweetImage');
   const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
-  const username = localStorage.getItem('login-success');
+  const username = localStorage.getItem('usuario-logeado');
 
   if (tweetContentValue === '') {
     alert('El contenido del tweet no puede estar vacío.');
@@ -60,7 +61,8 @@ publishButton.addEventListener('click', function (event) {
   localStorage.removeItem('tweetImage');
 });
 //maneja el evento de añadir una imagen al tweet
-addImgButton.addEventListener('click', function () {
+addImgButton.addEventListener('click', function (e) {
+  e.preventDefault()
   const fileInput = document.createElement('input');
   fileInput.type = 'file';
   fileInput.accept = 'image/*';
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //crea un elemento HTML para mostrar un tweet
 function createTweetElement(tweet) {
-  const tweetElement = document.createElement('div');
+  const tweetElement = document.createElement('article');
   tweetElement.classList.add('tweet');
 
   tweetElement.innerHTML = `
@@ -108,6 +110,7 @@ function createTweetElement(tweet) {
       <span class="tweet-time">${tweet.date}</span>
       <button class="tweet-action comment-action"><i class="fa-regular fa-comment"></i></button>
       <button class="tweet-action like-action"><i class="fa-regular fa-heart"></i></button>
+      <button class="tweet-action fav-action"><i class="fa-regular fa-bookmark"></i></button>
     </div>
   `;
   const likeButton = tweetElement.querySelector('.like-action');
@@ -126,17 +129,44 @@ function createTweetElement(tweet) {
     }
   });
 
+  const favButton = tweetElement.querySelector('.fav-action')
+  favButton.addEventListener('click', () => {
+    console.log("se hizo click");
+    Toastify({
+      text: "Añadido a favoritos",
+      className: "info",
+      style: {
+        background: "red",
+      }
+    }).showToast();
 
+  })
   return tweetElement;
 }
 
 
 const logout = document.querySelector('#logout-button')
 logout.addEventListener('click', () => {
-console.log('se hizo click');
-alert('Hasta luego')
-localStorage.removeItem('login-success')
-window.location.href = './pages/login.html'
+  console.log('se hizo click');
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+      localStorage.removeItem('usuario-logeado')
+      window.location.href = './pages/login.html'
+    }
+  });
 })
 
 
@@ -146,14 +176,14 @@ const darkModeSwitch = document.querySelector('#darkModeSwitch');
 
 // Añade un event listener para el evento 'change'
 darkModeSwitch.addEventListener('change', function () {
-    // Comprueba si el interruptor está activado
-    if (this.checked) {
-        // Si es así, cambia a modo oscuro
-        document.body.classList.add('modo-oscuro');
-        document.body.classList.remove('modo-claro');
-    } else {
-        // Si no, cambia a modo claro
-        document.body.classList.remove('modo-oscuro');
-        document.body.classList.add('modo-claro');
-    }
+  // Comprueba si el interruptor está activado
+  if (this.checked) {
+    // Si es así, cambia a modo oscuro
+    document.body.classList.add('modo-oscuro');
+    document.body.classList.remove('modo-claro');
+  } else {
+    // Si no, cambia a modo claro
+    document.body.classList.remove('modo-oscuro');
+    document.body.classList.add('modo-claro');
+  }
 });

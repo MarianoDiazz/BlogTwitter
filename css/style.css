@@ -3,6 +3,10 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 
 }
+:root{
+  --color--principal: #1DA1F2;
+  --color--sec: #e0e1e2;
+}
 
 .navbar-mobile {
   display: none;
@@ -10,15 +14,16 @@ body {
 
 .navbar {
   position: fixed;
-  background-color: #007bff;
-  color: #ddd;
+  background-color: var(--color--principal);
+  color: var(--color--sec);
   height: 100%;
   /* debo ajustar luego esto */
   display: flex;
   /* max-height: 7rem; */
+  /* min-width: 10em; */
 }
 
-@media (width < 500px) {
+@media (width < 400px){
   .navbar {
     display: none;
   }
@@ -44,7 +49,7 @@ body {
   .navbar-mobile .navbar__links a {
     padding: 15px;
     /* Añade un espaciado a los enlaces para mejorar la accesibilidad táctil */
-    color: white;
+    color: var(--color--sec);
     text-decoration: none;
     transition: background-color 0.3s;
   }
@@ -76,10 +81,16 @@ body {
 
 .navbar__links {
   list-style: none;
+  border:  solid 3px red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .navbar__links a {
-  color: #f5f5f5;
+  color: #242020;
   font-size: 1.2rem;
   text-decoration: none;
 }
@@ -275,6 +286,10 @@ body {
 
 .comment-action:hover {
   background-color: rgba(114, 113, 113, 0.315);
+  border-radius: 50%;
+}
+.fav-action:hover {
+  background-color: rgba(41, 168, 168, 0.315);
   border-radius: 50%;
 }
 

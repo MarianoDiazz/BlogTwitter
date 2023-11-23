@@ -1,5 +1,5 @@
 const loginForm = document.querySelector('#login-form');
-loginForm.addEventListener('submit', (e) => {
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;
@@ -12,9 +12,16 @@ loginForm.addEventListener('submit', (e) => {
 
     if (!validarUsuario) {
         return alert('Usuario y/o Contraseña incorrectos');
+    } else {
+        await Swal.fire({
+            title: `Bienvenido ${validarUsuario.name}`,
+            text: "Te extrañamos!",
+            icon: "success"
+        });
+        localStorage.setItem('usuario-logeado', validarUsuario.name);
+        // Agrega un retraso (timeout) antes de redirigir
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 40); // Espera 1 segundo (puedes ajustar el tiempo según tus necesidades)
     }
-
-    alert(`Bienvenido ${validarUsuario.name}`);
-    localStorage.setItem('login-success', validarUsuario.name); 
-    window.location.href = '../index.html';
 });
