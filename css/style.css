@@ -1,40 +1,44 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
-
 }
-:root{
-  --color--principal: #1DA1F2;
-  --color--sec: #e0e1e2;
+
+:root {
+  --color--principal: #00A770;
+  --color--sec: #325579;
 }
 
 .navbar-mobile {
   display: none;
 }
-
 .navbar {
   position: fixed;
-  background-color: var(--color--principal);
+  background-color: transparent;
   color: var(--color--sec);
   height: 100%;
-  /* debo ajustar luego esto */
   display: flex;
-  /* max-height: 7rem; */
-  /* min-width: 10em; */
+  flex-direction: column;
+  padding: 1rem;
 }
 
-@media (width < 400px){
+.navbar:hover {
+  background-color: #f5f8fa; /* Agrega un color de fondo en hover */
+}
+
+@media (max-width: 400px) {
   .navbar {
     display: none;
   }
 
   .navbar-mobile {
     display: flex;
-    background-color: #00ff00;
+    background-color: var(--color--principal);
     width: 100%;
     position: fixed;
     bottom: 0;
     justify-content: center;
+    align-items: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   }
 
   .navbar-mobile .navbar__links {
@@ -42,23 +46,19 @@ body {
     justify-content: center;
     gap: 1rem;
     align-items: baseline;
-    flex-direction: row;
-    /* Para que los enlaces estén uno encima del otro */
   }
 
   .navbar-mobile .navbar__links a {
     padding: 15px;
-    /* Añade un espaciado a los enlaces para mejorar la accesibilidad táctil */
     color: var(--color--sec);
     text-decoration: none;
     transition: background-color 0.3s;
   }
 
   .navbar-mobile .navbar__links a:hover {
-    background-color: #1DA1F2;
+    background-color: #1291f6;
   }
 
-  /* Ajuste de estilos para el botón de logout */
   .navbar-mobile #logout-button {
     background-color: #e74c3c;
     color: white;
@@ -71,7 +71,6 @@ body {
     text-align: left;
     width: 100%;
     margin-top: 10px;
-    /* Añade un margen top para separar el botón de los enlaces */
   }
 
   .navbar-mobile #logout-button:hover {
@@ -80,42 +79,42 @@ body {
 }
 
 .navbar__links {
+  position: fixed;
   list-style: none;
-  border:  solid 3px red;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  padding: 1rem;
 }
 
 .navbar__links a {
-  color: #242020;
+  color: var(--color--sec);
   font-size: 1.2rem;
   text-decoration: none;
 }
 
 .navbar__links li {
   margin-top: 15px;
-  justify-content: center;
 }
 
-/* #logout-button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  font-size: 16px;
+.btn-cambiar-modo {
+  background-color: var(--color--principal);
+  width: 12rem;
   cursor: pointer;
+  border: transparent;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
   transition: background-color 0.3s;
 }
 
-#logout-button:hover {
-  background-color: #c0392b;
-} */
+.btn-cambiar-modo:hover {
+  background-color: #1291f6;
+}
 
-/* tweet box */
 .tweet__box {
   background-color: white;
   border: 1px solid #ccc;
@@ -133,29 +132,35 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-height: 100px;
+  resize: none;
 }
 
 .tweet__box__button {
-  background-color: #1DA1F2;
+  background-color: var(--color--principal);
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-/* ICONOS */
+.tweet__box__button:hover {
+  background-color: #1291f6;
+}
+
 .tweet__box__icons i {
   margin-right: 10px;
   cursor: pointer;
+  font-size: 1.5rem;
 }
 
-/* Columna derecha */
 .sidebar {
   position: fixed;
-  background-color: #fff;
+  background-color: #f5f8fa;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -164,58 +169,38 @@ body {
   margin-bottom: 15px;
 }
 
-.sidebar__user-list {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar__user-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.sidebar__user-img {
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
+.sidebar__user-list,
 .sidebar__trends-list,
 .sidebar__suggestions-list {
   list-style: none;
   padding: 0;
-  margin-top: 15px;
 }
 
+.sidebar__user-item,
 .sidebar__trends-item,
 .sidebar__suggestions-item {
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.sidebar__trends-item a {
-  color: #007bff;
-  text-decoration: none;
-}
-
+.sidebar__user-img,
 .sidebar__suggestions-img {
   border-radius: 50%;
   margin-right: 10px;
   width: 50px;
   height: 50px;
-  object-fit: c;
+  object-fit: cover;
 }
 
-/* TWEET */
+.sidebar__trends-item a {
+  color: var(--color--principal);
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .tweets-container {
   margin-top: 20px;
-}
-
-.tweet {
-  background-color: #f5f5f5;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
 }
 
 .tweet {
@@ -227,7 +212,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* AUTOR TWEET */
 .tweet-author {
   display: flex;
   align-items: center;
@@ -251,8 +235,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* ACTIONS (LIKE, HORA, COMMENT) */
-
 .tweet-actions {
   display: flex;
   align-items: center;
@@ -272,11 +254,12 @@ body {
   cursor: pointer;
   margin-right: 20px;
   font-size: 1.3rem;
-  margin-left: 2rem;
 }
 
-.like-action:hover {
-  background-color: rgba(242, 29, 29, 0.315);
+.like-action:hover,
+.comment-action:hover,
+.fav-action:hover {
+  background-color: rgba(0, 0, 0, 0.05);
   border-radius: 50%;
 }
 
@@ -285,33 +268,32 @@ body {
 }
 
 .comment-action:hover {
-  background-color: rgba(114, 113, 113, 0.315);
-  border-radius: 50%;
-}
-.fav-action:hover {
-  background-color: rgba(41, 168, 168, 0.315);
+  background-color: rgba(114, 113, 113, 0.05);
   border-radius: 50%;
 }
 
-/* IMAGEN TWEET */
+.fav-action:hover {
+  background-color: rgba(41, 168, 168, 0.05);
+  border-radius: 50%;
+}
+
 .tweet-image {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-
 .login-form {
   width: 300px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .login-form h1 {
   text-align: center;
-  color: #4ca340;
+  color: var(--color--principal);
   font-size: 24px;
-  padding: 20px 0 20px 0;
+  padding: 20px 0;
 }
 
 .login-form input {
@@ -325,29 +307,27 @@ body {
 .login-form input[type="submit"] {
   width: 100%;
   padding: 15px;
-  background-color: #4ca340;
+  background-color: var(--color--principal);
   border: 0;
   box-sizing: border-box;
   cursor: pointer;
   font-weight: bold;
   color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
-.login-form .error-message {
-  text-align: center;
-  color: #ff0000;
-  font-size: 14px;
-  margin-bottom: 15px;
+.login-form input[type="submit"]:hover {
+  background-color: #1291f6;
 }
 
+.login-form .error-message,
 .login-form .success-message {
   text-align: center;
-  color: #00ff00;
   font-size: 14px;
   margin-bottom: 15px;
 }
 
-/* SECCION COMENTARIOS */
 .comments-container {
   display: none;
 }
@@ -366,10 +346,18 @@ body.modo-oscuro {
   color: white;
 }
 
-
 .btn-cambiar-modo {
-  background-color: #6EA2C4;
+  background-color: var(--color--principal);
   width: 12rem;
   cursor: pointer;
   border: transparent;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-cambiar-modo:hover {
+  background-color: #1291f6;
 }

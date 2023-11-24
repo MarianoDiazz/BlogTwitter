@@ -12,47 +12,34 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row mb-5">
       <!-- Columna izquierda -->
-      <div class="col-xl-3 col-md-2">
-        <div class="navbar">
-          <ul class="navbar__links">
-            <li class="navbar__links__home"><a href="./index.html"><i class="fas fa-home"></i>Inicio</a></li>
-            <li class="navbar__links__saved"><a href="./pages/favoritos.html"><i
-                  class="fas fa-bookmark"></i>Favoritos</a></li>
-            <li class="navbar__links__logout">
-              <button href="./pages/login.html" id="logout-button"><i class="fas fa-sign-out-alt"></i>Cerrar
-                Sesión</button>
-            </li>
-            <div class="form-check form-switch fs-3">
-              <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch">
-              <label class="form-check-label" for="darkModeSwitch"></label>
-            </div>
-          </ul>
-        </div>
-        <div class="navbar-mobile ">
-          <ul class="navbar__links">
-            <li class="navbar__links__home"><a href="./index.html"><i class="fas fa-home"></i></a></li>
-            <li class="navbar__links__saved"><a href="./pages/favoritos.html"><i class="fas fa-bookmark"></i></a></li>
-            <li class="navbar__links__logout">
-              <button href="./pages/login.html" id="logout-button"><i class="fas fa-sign-out-alt"></i>
-              </button>
-            </li>
-            <div class="form-check form-switch fs-3">
-              <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch">
-              <label class="form-check-label" for="darkModeSwitch"></label>
-            </div>
-          </ul>
-        </div>
+      <div class="col-xl-3 col-md-2 d-flex justify-content-end">
+        <ul class="navbar__links">
+          <li class="navbar__links__home btn"><a href="./index.html"><i
+                class="fas fa-home"></i>Inicio</a></li>
+          <li class="navbar__links__saved btn"><a href="./pages/favoritos.html"><i
+                class="fas fa-bookmark"></i>Favoritos</a></li>
+          <li class="navbar__links__logout">
+            <button class="btn btn-outline-danger" href="./pages/login.html" id="logout-button"><i
+                class="fas fa-sign-out-alt"></i>Cerrar
+              Sesión</button>
+          </li>
+          <div class="form-check form-switch fs-3">
+            <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch">
+            <label class="form-check-label" for="darkModeSwitch"></label>
+          </div>
+        </ul>
       </div>
+
       <!-- Columna central -->
       <div class="col-md-6">
         <form class="tweet__box">
-          <input class="tweet__box__content" id="tweet-content" contenteditable="true"
+          <input class="tweet__box__content form-control" id="tweet-content" contenteditable="true"
             placeholder="¿Qué estás pensando?"></input>
-          <button type="submit" class="tweet__box__button" id="publish-button">Publicar</button>
-          <button id="add-img-button"><i class="fa-regular fa-image"></i></button>
+          <button type="submit" class="tweet__box__button btn btn-primary" id="publish-button">Publicar</button>
+          <button id="add-img-button" class="btn btn-secondary"><i class="fa-regular fa-image"></i></button>
         </form>
         <div class="tweets-container">
           <!-- Ejemplo de un tweet publicado -->
@@ -62,69 +49,39 @@
       <!-- Columna derecha -->
       <div class="col-xl-3">
         <div class="sidebar">
-
-
           <!-- Sección de Tendencias -->
           <h4>Tendencias</h4>
           <ul class="sidebar__trends-list">
             <li class="sidebar__trends-item">
               <a href="#">#BocaJuniors</a>
             </li>
-            <li class="sidebar__trends-item">
-              <a href="#">#Taylor</a>
-            </li>
-            <li class="sidebar__trends-item">
-              <a href="#">Coder House</a>
-            </li>
-            <li class="sidebar__trends-item">
-              <a href="#">#Iphone 16</a>
-            </li>
-            <li class="sidebar__trends-item">
-              <a href="#">#Cavani</a>
-            </li>
-            <li class="sidebar__trends-item">
-              <a href="#">#GtaVI</a>
-            </li>
+            <!-- ... Otras tendencias ... -->
           </ul>
 
           <!-- Sección de Sugerencias de Seguimiento -->
           <h4>Sugerencias para ti</h4>
           <ul class="sidebar__suggestions-list">
             <li class="sidebar__suggestions-item">
-              <img
-                src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="Usuario" class="sidebar__suggestions-img">
+              <img src="https://cdn.pixabay.com/photo/2015/11/26/00/14/woman-1063100_1280.jpg" alt="Usuario"
+                class="sidebar__suggestions-img">
               <span class="sidebar__suggestions-name">Diego Marin</span>
               <button class="btn btn-sm btn-outline-primary">Seguir</button>
             </li>
-            <li class="sidebar__suggestions-item">
-              <img
-                src="https://images.pexels.com/photos/4600301/pexels-photo-4600301.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="Usuario2" class="sidebar__suggestions-img">
-              <span class="sidebar__suggestions-name">Santiago Bla</span>
-              <button class="btn btn-sm btn-outline-primary">Seguir</button>
-            </li>
-            <li class="sidebar__suggestions-item">
-              <img
-                src="https://images.pexels.com/photos/5905897/pexels-photo-5905897.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="usuario3" class="sidebar__suggestions-img">
-              <span class="sidebar__suggestions-name">Pau Llorente</span>
-              <button class="btn btn-sm btn-outline-primary">Seguir</button>
-            </li>
+            <!-- ... Otras sugerencias ... -->
           </ul>
-
         </div>
       </div>
     </div>
-    <!-- Sweet Alerts -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://kit.fontawesome.com/3c7012e78f.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/posts.js"></script>
+  </div>
+  <!-- Sweet Alerts -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://kit.fontawesome.com/3c7012e78f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/posts.js"></script>
 </body>
 
 </html>

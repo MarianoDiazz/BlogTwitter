@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tus Favoritos</title>
+  <!-- Agrega el enlace a Bootstrap -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3c7012e78f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Contenedor principal con Bootstrap -->
+  <div class="container">
+    <div class="row">
+      <!-- Primera columna que ocupa 3 lugares en dispositivos grandes -->
+      <div class="col-lg-3">
+        <nav class="navbar">
+          <ul class="navbar__links">
+            <li class="navbar__links__home">
+              <a href="../index.html"><i class="fas fa-home"></i>Inicio</a>
+            </li>
+            <li class="navbar__links__saved">
+              <a href="./favoritos.html"><i class="fas fa-bookmark"></i>Favoritos</a>
+            </li>
+            <li class="navbar__links__logout">
+              <button href="./login.html" id="logout-button">
+                <i class="fas fa-sign-out-alt"></i>Cerrar Sesión
+              </button>
+            </li>
+            <div class="form-check form-switch fs-3">
+              <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch" />
+              <label class="form-check-label" for="darkModeSwitch"></label>
+            </div>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Segunda columna que ocupa 6 lugares en dispositivos grandes -->
+      <div class="col-lg-6">
+        <div class="tweets-container">
+          <!-- El contenedor donde se mostrarán los tweets favoritos -->
+        </div>
+      </div>
+
+      <!-- Tercera columna que ocupa 3 lugares en dispositivos grandes -->
+      <div class="col-lg-3">
+        <!-- Contenido de la tercera columna -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Agrega el script de Bootstrap y tu script de favoritos.js -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="../js/favoritos.js"></script>
+</body>
+</html>
