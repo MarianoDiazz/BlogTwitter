@@ -90,6 +90,10 @@ body {
 }
 
 .navbar__links a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 5px;
   color: var(--color--sec);
   font-size: 1.2rem;
   text-decoration: none;
