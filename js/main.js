@@ -90,10 +90,9 @@ function createTweetElement(tweet) {
       <span class="author-name">${tweet.username}</span>
     </div>
     <p class="tweet-text">${tweet.content}</p>
-    ${
-      tweet.image
-        ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image w-100">`
-        : ""
+    ${tweet.image
+      ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image w-100">`
+      : ""
     }
     <div class="tweet-actions">
       <span class="tweet-time">${tweet.date}</span>
@@ -117,35 +116,35 @@ function createTweetElement(tweet) {
       likeButton.querySelector("i").classList.replace("fa-regular", "fa-solid");
     }
   });
-  
-const favButton = tweetElement.querySelector('.fav-action')
-favButton.addEventListener('click', () => {
-  console.log("se hizo click");
 
-  // Obtener el ID del tweet
-  const tweetId = tweet.id;
+  const favButton = tweetElement.querySelector('.fav-action')
+  favButton.addEventListener('click', () => {
+    console.log("se hizo click");
 
-  // Cambiar el valor de isFav a true en el localStorage
-  const posts = JSON.parse(localStorage.getItem('posts')) || [];
-  const updatedPosts = posts.map(post => {
-    if (post.id === tweetId) {
-      post.isFav = true;
-    }
-    return post;
+    // Obtener el ID del tweet
+    const tweetId = tweet.id;
+
+    // Cambiar el valor de isFav a true en el localStorage
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const updatedPosts = posts.map(post => {
+      if (post.id === tweetId) {
+        post.isFav = true;
+      }
+      return post;
+    });
+    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+
+    // Llamar a la función guardarTweet con el tweet
+    guardarTweet(tweet);
+
+    Toastify({
+      text: "Añadido a favoritos",
+      className: "info",
+      style: {
+        background: "red",
+      }
+    }).showToast();
   });
-  localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
-  // Llamar a la función guardarTweet con el tweet
-  guardarTweet(tweet);
-
-  Toastify({
-    text: "Añadido a favoritos",
-    className: "info",
-    style: {
-      background: "red",
-    }
-  }).showToast();
-});
 
   return tweetElement;
 }
@@ -176,30 +175,6 @@ function guardarTweet(tweet) {
 
 
 
-const logout = document.querySelector("#logout-button");
-logout.addEventListener("click", () => {
-  console.log("se hizo click");
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
-        icon: "success",
-      });
-      localStorage.removeItem("usuario-logeado");
-      window.location.href = "./pages/login.html";
-    }
-  });
-});
-
 // modo oscuro
 // Selecciona el interruptor
 const darkModeSwitch = document.querySelector("#darkModeSwitch");
@@ -224,3 +199,46 @@ fetch(URL)
   .then((respuesta) => respuesta.json())
   .then((data) => localStorage.setItem("tweetsDefault", JSON.stringify(data)))
   .catch((error) => console.log(error));
+
+  const perfilInfoContainer = document.querySelector('.perfil_info');
+
+  // Crea el elemento del perfil con backticks
+  const perfilInfoElement = document.createElement('div');
+  perfilInfoElement.classList.add('perfil__info');
+  
+  perfilInfoElement.innerHTML = `
+    <div class="perfil__img">
+      <img src="${localStorage.getItem('perfilImage') || defaultPerfilImg}" alt="Imagen de perfil">
+    </div>
+    <div class="perfil__details">
+      <h3>${localStorage.getItem('usuario-logeado') || 'Nombre predeterminado'}</h3>
+      <p>${localStorage.getItem('usuario-logeado-mail') || 'Correo predeterminado'}</p>
+    </div>
+    <button class="btn btn-outline-danger" id="logout-button"><i class="fas fa-sign-out-alt"></i></button>`;
+  
+  // Agrega el elemento del perfil al contenedor
+  perfilInfoContainer.appendChild(perfilInfoElement);
+  
+const logout = perfilInfoElement.querySelector("#logout-button");
+logout.addEventListener("click", () => {
+  console.log("se hizo click");
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+      localStorage.removeItem("usuario-logeado");
+      window.location.href = "./pages/login.html";
+    }
+  });
+});

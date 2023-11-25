@@ -346,8 +346,8 @@ body.modo-claro {
 }
 
 body.modo-oscuro {
-  background-color: black;
-  color: white;
+  background-color: #15202B;
+  color: rgb(19, 15, 15);
 }
 
 .btn-cambiar-modo {
@@ -364,4 +364,38 @@ body.modo-oscuro {
 
 .btn-cambiar-modo:hover {
   background-color: #1291f6;
+}
+
+
+/* PERFIL DATOS */
+.perfil__info {
+  display: flex;
+  align-items: center;
+}
+
+.perfil__img {
+  margin-right: 1rem;
+}
+
+.perfil__img img {
+  width: 48px; /* Ajusta el tamaño según sea necesario */
+  height: 48px; /* Ajusta el tamaño según sea necesario */
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.perfil__details h3 {
+  margin: 0;
+  font-size: 1rem; /* Ajusta el tamaño según sea necesario */
+  font-weight: bold;
+}
+
+.perfil__details p {
+  margin: 0;
+  font-size: 0.9rem; /* Ajusta el tamaño según sea necesario */
+  color: #657786; /* Color de texto gris en Twitter */
+}
+
+#logout-button {
+  margin-left: auto;
 }

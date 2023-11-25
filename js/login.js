@@ -19,6 +19,7 @@ loginForm.addEventListener('submit', async (e) => {
             icon: "success"
         });
         localStorage.setItem('usuario-logeado', validarUsuario.name);
+        localStorage.setItem('usuario-logeado-mail', validarUsuario.email);
         // Agrega un retraso (timeout) antes de redirigir
         setTimeout(() => {
             window.location.href = '../index.html';
