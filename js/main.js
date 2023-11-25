@@ -208,7 +208,7 @@ fetch(URL)
   
   perfilInfoElement.innerHTML = `
     <div class="perfil__img">
-      <img src="${localStorage.getItem('perfilImage') || defaultPerfilImg}" alt="Imagen de perfil">
+      <img  src="${localStorage.getItem('perfilImage') || defaultPerfilImg}" alt="Imagen de perfil">
     </div>
     <div class="perfil__details">
       <h3>${localStorage.getItem('usuario-logeado') || 'Nombre predeterminado'}</h3>
@@ -219,7 +219,44 @@ fetch(URL)
   // Agrega el elemento del perfil al contenedor
   perfilInfoContainer.appendChild(perfilInfoElement);
   
-const logout = perfilInfoElement.querySelector("#logout-button");
+  // Agrega el evento de clic a la imagen de perfil
+  const perfilImg = perfilInfoElement.querySelector('.perfil__img img');
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  
+  perfilImg.addEventListener('click', () => {
+    Swal.fire({
+      title: 'Cambiar imagen de perfil',
+      text: '¿Quieres cambiar tu imagen de perfil?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si se confirma, abre el explorador de archivos al hacer clic en el input de tipo file
+        fileInput.click();
+      }
+    });
+  });
+  
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        const imageDataURL = reader.result;
+        perfilImg.src = imageDataURL;
+  
+        // Guarda la imagen en el localStorage
+        localStorage.setItem('perfilImage', imageDataURL);
+      };
+    }
+  });
+  const logout = perfilInfoElement.querySelector("#logout-button");
 logout.addEventListener("click", () => {
   console.log("se hizo click");
   Swal.fire({

@@ -79,6 +79,7 @@ body {
 }
 
 .navbar__links {
+  width: 16rem;
   position: fixed;
   list-style: none;
   height: 100%;
@@ -95,12 +96,11 @@ body {
   align-items: baseline;
   gap: 5px;
   color: var(--color--sec);
-  font-size: 1.2rem;
   text-decoration: none;
 }
 
 .navbar__links li {
-  margin-top: 15px;
+  font-size: 2rem;
 }
 
 .btn-cambiar-modo {
