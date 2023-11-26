@@ -131,7 +131,7 @@ function createTweetElement(tweet) {
     </div>
     <p class="tweet-text">${tweet.content}</p>
     ${tweet.image
-      ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image w-100">`
+      ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image">`
       : ""
     }
     <div class="tweet-actions">

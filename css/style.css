@@ -11,6 +11,7 @@ body {
 .navbar-mobile {
   display: none;
 }
+
 .navbar {
   position: fixed;
   background-color: transparent;
@@ -22,7 +23,8 @@ body {
 }
 
 .navbar:hover {
-  background-color: #f5f8fa; /* Agrega un color de fondo en hover */
+  background-color: #f5f8fa;
+  /* Agrega un color de fondo en hover */
 }
 
 @media (max-width: 400px) {
@@ -87,7 +89,6 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
-  padding: 1rem;
 }
 
 .navbar__links a {
@@ -282,9 +283,10 @@ body {
 }
 
 .tweet-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+  width: 100%;
+  border-radius: 1rem;
+  max-height: 26rem;
+  object-fit: contain;
 }
 
 .login-form {
@@ -365,6 +367,34 @@ body.modo-oscuro {
 .btn-cambiar-modo:hover {
   background-color: #1291f6;
 }
+/* Estilos para el mensaje "Aún no agregaste nada a favoritos" */
+.sin-favoritos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8d7da; /* Color de fondo rojo claro para indicar atención */
+  border: 1px solid #f5c6cb; /* Borde rojo más oscuro */
+  border-radius: 8px;
+}
+
+.sin-favoritos i {
+  color: #721c24; /* Color rojo oscuro para el icono de advertencia */
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Estilos mejorados para el título "Favoritos" */
+.favoritos_title {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 2.5rem; /* Tamaño grande de fuente */
+  color: #007bff; /* Azul brillante para el color del texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para resaltar el texto */
+}
 
 
 /* PERFIL DATOS */
@@ -378,24 +408,168 @@ body.modo-oscuro {
 }
 
 .perfil__img img {
-  width: 48px; /* Ajusta el tamaño según sea necesario */
-  height: 48px; /* Ajusta el tamaño según sea necesario */
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .perfil__details h3 {
   margin: 0;
-  font-size: 1rem; /* Ajusta el tamaño según sea necesario */
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .perfil__details p {
   margin: 0;
-  font-size: 0.9rem; /* Ajusta el tamaño según sea necesario */
-  color: #657786; /* Color de texto gris en Twitter */
+  font-size: 0.9rem;
+  color: #657786;
 }
 
 #logout-button {
   margin-left: auto;
+}
+
+@media(width<993px) {
+  body {
+    background-color: #00A770;
+  }
+
+  .navbar__links {
+    width: 15%;
+
+  }
+
+  .navbar__links a {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    color: var(--color--sec);
+    text-decoration: none;
+    font-size: 0px;
+  }
+
+  .navbar__links__saved a {
+    margin-left: 4px;
+  }
+
+  .navbar__links i {
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .navbar__links li {
+    font-size: 2rem;
+  }
+
+  .perfil__info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .perfil__img {
+    margin-right: 7px;
+  }
+
+  .perfil__img img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .perfil__details h3 {
+    display: none;
+  }
+
+  .perfil__details p {
+    display: none;
+  }
+
+  #logout-button {
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 575px) {
+  body {
+    background-color: #1291f6;
+  }
+  .form-switch{
+    display: none;
+  }
+
+  .navbar {
+    position: fixed;
+    bottom: 0;
+    color: var(--color--sec);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: #1291f6;
+    /* Ajusta el color de fondo según sea necesario */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar__links {
+    position: fixed;
+    bottom: 0;
+    background-color: #00A770;
+    flex-direction: row;
+    height: 3rem;
+    margin: 0;
+    padding-top: 5px;
+    display: flex;
+    width: 100%;
+  }
+
+  .navbar__links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color--sec);
+    text-decoration: none;
+    font-size: 1rem;
+    /* Ajusta el tamaño del texto según sea necesario */
+  }
+
+  .navbar__links i {
+    font-size: 1.5rem;
+    /* Ajusta el tamaño del icono según sea necesario */
+  }
+
+  .navbar__links__saved a {
+    margin-left: 4px;
+  }
+
+  .perfil__info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .perfil__img {
+    display: none;
+  }
+
+  .perfil__details h3 {
+    display: none;
+  }
+
+  .perfil__details p {
+    display: none;
+  }
+
+  #logout-button {
+    /* margin-right: 56px; */
+    position: fixed;
+    right: 36px;
+    bottom: 4px;
+    padding-top: 5px;
+  }
 }
