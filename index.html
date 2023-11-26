@@ -35,15 +35,19 @@
 
       <!-- Columna central -->
       <div class="col-md-6">
-        <form class="tweet__box">
+        <form class="tweet__box" id="tweet-form">
           <input class="tweet__box__content form-control" id="tweet-content" contenteditable="true"
             placeholder="¿Qué estás pensando?"></input>
           <button type="submit" class="tweet__box__button btn btn-primary" id="publish-button">Publicar</button>
-          <button id="add-img-button" class="btn btn-secondary"><i class="fa-regular fa-image"></i></button>
+          <label for="subir-img" class="btn btn-secondary" id="add-img-button">
+            <i class="fa-regular fa-image"></i>
+          </label>
+          <input type="file" id="subir-img" style="display: none;">
+          <div class="image-miniatura-container">
+            <!-- Este es el contenedor para las miniaturas de imágenes -->
+          </div>
         </form>
         <div class="tweets-container">
-          <!-- Ejemplo de un tweet publicado -->
-          <!-- Los tweets se mostrarán dinámicamente desde JavaScript -->
         </div>
       </div>
       <!-- Columna derecha -->
@@ -54,6 +58,15 @@
           <ul class="sidebar__trends-list">
             <li class="sidebar__trends-item">
               <a href="#">#BocaJuniors</a>
+            </li>
+            <li class="sidebar__trends-item">
+              <a href="#">#Cavani</a>
+            </li>
+            <li class="sidebar__trends-item">
+              <a href="#">#La Septima</a>
+            </li>
+            <li class="sidebar__trends-item">
+              <a href="#">#Huguito Flores</a>
             </li>
             <!-- ... Otras tendencias ... -->
           </ul>
@@ -75,8 +88,11 @@
   </div>
   <!-- Sweet Alerts -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/3c7012e78f.js" crossorigin="anonymous"></script>
+  <!-- Toastify -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>

@@ -4,6 +4,43 @@ const addImgButton = document.querySelector("#add-img-button");
 const tweetContent = document.querySelector("#tweet-content");
 const tweetsContainer = document.querySelector(".tweets-container");
 
+
+const subirImagen = document.querySelector('#subir-img');
+// funcion para toastify
+const showToast = (message, className) => {
+  Toastify({
+    text: message,
+    className: className,
+    style: {
+      background: "red",
+    },
+  }).showToast();
+};
+
+subirImagen.addEventListener('change', (e) => {
+  const confirmarImagen = confirm("¿Deseas cargar la imagen?");
+
+  if (confirmarImagen) {
+    const imagenElegida = new FileReader();
+
+    imagenElegida.onload = function (e) {
+      const img = e.target.result;
+      localStorage.setItem('imagen', img);
+
+      showToast("Imagen cargada", "success");
+    };
+
+    const archivo = e.target.files[0];
+
+    if (archivo) {
+      imagenElegida.readAsDataURL(archivo);
+    } else {
+      showToast("No se seleccionó ninguna imagen", "error");
+    }
+  } else {
+    showToast("Imagen cancelada", "error");
+  }
+});
 //se ejecuta cuando se carga la página
 document.addEventListener("DOMContentLoaded", function () {
   displayTweets();
@@ -40,7 +77,7 @@ function createPost(postContent, imageUrl, date) {
     perfilImg,
     id: new Date().getTime().toString(),
     comments: [],
-    isFav: false, // Agregamos el campo isFav y lo inicializamos como false
+    isFav: false,
   };
 
   posts.unshift(newPost);
@@ -51,15 +88,18 @@ publishButton.addEventListener("click", function (event) {
   event.preventDefault();
 
   const tweetContentValue = tweetContent.value.trim();
-  const tweetImage = localStorage.getItem("tweetImage");
+  const tweetImage = localStorage.getItem("imagen");
   const perfilImg = localStorage.getItem("perfilImage") || defaultPerfilImg;
   const username = localStorage.getItem("usuario-logeado");
 
-  if (tweetContentValue === "") {
-    alert("El contenido del tweet no puede estar vacío.");
-    return;
+  if (tweetContentValue === "" && !tweetImage) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No puedes publicar un post vacio!",
+    });  
+      return;
   }
-
   const tweet = {
     content: tweetContentValue,
     image: tweetImage,
@@ -76,7 +116,7 @@ publishButton.addEventListener("click", function (event) {
   tweetsContainer.prepend(tweetElement);
 
   tweetContent.value = "";
-  localStorage.removeItem("tweetImage");
+  localStorage.removeItem("imagen");
 });
 
 //crea un elemento HTML para mostrar un tweet
@@ -200,13 +240,13 @@ fetch(URL)
   .then((data) => localStorage.setItem("tweetsDefault", JSON.stringify(data)))
   .catch((error) => console.log(error));
 
-  const perfilInfoContainer = document.querySelector('.perfil_info');
+const perfilInfoContainer = document.querySelector('.perfil_info');
 
-  // Crea el elemento del perfil con backticks
-  const perfilInfoElement = document.createElement('div');
-  perfilInfoElement.classList.add('perfil__info');
-  
-  perfilInfoElement.innerHTML = `
+// Crea el elemento del perfil con backticks
+const perfilInfoElement = document.createElement('div');
+perfilInfoElement.classList.add('perfil__info');
+
+perfilInfoElement.innerHTML = `
     <div class="perfil__img">
       <img  src="${localStorage.getItem('perfilImage') || defaultPerfilImg}" alt="Imagen de perfil">
     </div>
@@ -215,48 +255,48 @@ fetch(URL)
       <p>${localStorage.getItem('usuario-logeado-mail') || 'Correo predeterminado'}</p>
     </div>
     <button class="btn btn-outline-danger" id="logout-button"><i class="fas fa-sign-out-alt"></i></button>`;
-  
-  // Agrega el elemento del perfil al contenedor
-  perfilInfoContainer.appendChild(perfilInfoElement);
-  
-  // Agrega el evento de clic a la imagen de perfil
-  const perfilImg = perfilInfoElement.querySelector('.perfil__img img');
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  
-  perfilImg.addEventListener('click', () => {
-    Swal.fire({
-      title: 'Cambiar imagen de perfil',
-      text: '¿Quieres cambiar tu imagen de perfil?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Si se confirma, abre el explorador de archivos al hacer clic en el input de tipo file
-        fileInput.click();
-      }
-    });
-  });
-  
-  fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-  
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
-        const imageDataURL = reader.result;
-        perfilImg.src = imageDataURL;
-  
-        // Guarda la imagen en el localStorage
-        localStorage.setItem('perfilImage', imageDataURL);
-      };
+
+// Agrega el elemento del perfil al contenedor
+perfilInfoContainer.appendChild(perfilInfoElement);
+
+// Agrega el evento de clic a la imagen de perfil
+const perfilImg = perfilInfoElement.querySelector('.perfil__img img');
+const fileInput = document.createElement('input');
+fileInput.type = 'file';
+
+perfilImg.addEventListener('click', () => {
+  Swal.fire({
+    title: 'Cambiar imagen de perfil',
+    text: '¿Quieres cambiar tu imagen de perfil?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Si se confirma, abre el explorador de archivos al hacer clic en el input de tipo file
+      fileInput.click();
     }
   });
-  const logout = perfilInfoElement.querySelector("#logout-button");
+});
+
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      const imageDataURL = reader.result;
+      perfilImg.src = imageDataURL;
+
+      // Guarda la imagen en el localStorage
+      localStorage.setItem('perfilImage', imageDataURL);
+    };
+  }
+});
+const logout = perfilInfoElement.querySelector("#logout-button");
 logout.addEventListener("click", () => {
   console.log("se hizo click");
   Swal.fire({
