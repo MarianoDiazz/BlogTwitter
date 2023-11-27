@@ -20,9 +20,8 @@ loginForm.addEventListener('submit', async (e) => {
         });
         localStorage.setItem('usuario-logeado', validarUsuario.name);
         localStorage.setItem('usuario-logeado-mail', validarUsuario.email);
-        // Agrega un retraso (timeout) antes de redirigir
         setTimeout(() => {
             window.location.href = '../index.html';
-        }, 40); // Espera 1 segundo (puedes ajustar el tiempo según tus necesidades)
+        }, 40); 
     }
 });

@@ -41,10 +41,8 @@ subirImagen.addEventListener('change', (e) => {
     showToast("Imagen cancelada", "error");
   }
 });
-//se ejecuta cuando se carga la página
-document.addEventListener("DOMContentLoaded", function () {
   displayTweets();
-});
+
 
 function getPosts() {
   const tweetsDefault = JSON.parse(localStorage.getItem("tweetsDefault")) || [];
@@ -54,7 +52,6 @@ function getPosts() {
 // Aquí defino la URL de la imagen predeterminada para el perfil
 const defaultPerfilImg =
   "https://img.freepik.com/vector-gratis/avatar-personaje-empresario-aislado_24877-60111.jpg?w=996&t=st=1699501372~exp=1699501972~hmac=51078fb4a29f5608ea71a9185ba340be0fc81f9a41a4ba95697a0d8c52a83ada";
-//muestra los tweets guardados en el localStorage
 function displayTweets() {
   const tweets = getPosts();
   console.log(tweets);
@@ -112,14 +109,11 @@ publishButton.addEventListener("click", function (event) {
     username,
     ...tweet,
   });
-
   tweetsContainer.prepend(tweetElement);
-
   tweetContent.value = "";
   localStorage.removeItem("imagen");
 });
 
-//crea un elemento HTML para mostrar un tweet
 function createTweetElement(tweet) {
   const tweetElement = document.createElement("article");
   tweetElement.classList.add("tweet");
@@ -147,11 +141,9 @@ function createTweetElement(tweet) {
     console.log("se hizo click en mg");
 
     if (likeButton.classList.contains("liked")) {
-      // Si la tiene, la quita y reemplaza 'fa-solid' por 'fa-regular'
       likeButton.classList.remove("liked");
       likeButton.querySelector("i").classList.replace("fa-solid", "fa-regular");
     } else {
-      // Si no la tiene, la agrega y reemplaza 'fa-regular' por 'fa-solid'
       likeButton.classList.add("liked");
       likeButton.querySelector("i").classList.replace("fa-regular", "fa-solid");
     }
@@ -159,12 +151,7 @@ function createTweetElement(tweet) {
 
   const favButton = tweetElement.querySelector('.fav-action')
   favButton.addEventListener('click', () => {
-    console.log("se hizo click");
-
-    // Obtener el ID del tweet
     const tweetId = tweet.id;
-
-    // Cambiar el valor de isFav a true en el localStorage
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
     const updatedPosts = posts.map(post => {
       if (post.id === tweetId) {
@@ -173,8 +160,6 @@ function createTweetElement(tweet) {
       return post;
     });
     localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
-    // Llamar a la función guardarTweet con el tweet
     guardarTweet(tweet);
 
     Toastify({
@@ -189,16 +174,11 @@ function createTweetElement(tweet) {
   return tweetElement;
 }
 
-
 function guardarTweet(tweet) {
   let tweetsGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
-
-  // Añadir tweets al array
   tweetsGuardados.unshift(tweet);
   // Guardar el array en LS
   localStorage.setItem('favoritos', JSON.stringify(tweetsGuardados));
-
-  // Cambiar el valor de isFav a true
   const posts = JSON.parse(localStorage.getItem('posts')) || [];
   const updatedPosts = posts.map(post => {
     if (post.id === tweet.id) {
@@ -208,26 +188,14 @@ function guardarTweet(tweet) {
   });
   localStorage.setItem('posts', JSON.stringify(updatedPosts));
 }
-
-
-
-
-
-
-
 // modo oscuro
-// Selecciona el interruptor
 const darkModeSwitch = document.querySelector("#darkModeSwitch");
 
-// Añade un event listener para el evento 'change'
 darkModeSwitch.addEventListener("change", function () {
-  // Comprueba si el interruptor está activado
   if (this.checked) {
-    // Si es así, cambia a modo oscuro
     document.body.classList.add("modo-oscuro");
     document.body.classList.remove("modo-claro");
   } else {
-    // Si no, cambia a modo claro
     document.body.classList.remove("modo-oscuro");
     document.body.classList.add("modo-claro");
   }
@@ -242,7 +210,6 @@ fetch(URL)
 
 const perfilInfoContainer = document.querySelector('.perfil_info');
 
-// Crea el elemento del perfil con backticks
 const perfilInfoElement = document.createElement('div');
 perfilInfoElement.classList.add('perfil__info');
 
@@ -256,10 +223,7 @@ perfilInfoElement.innerHTML = `
     </div>
     <button class="btn btn-outline-danger" id="logout-button"><i class="fas fa-sign-out-alt"></i></button>`;
 
-// Agrega el elemento del perfil al contenedor
 perfilInfoContainer.appendChild(perfilInfoElement);
-
-// Agrega el evento de clic a la imagen de perfil
 const perfilImg = perfilInfoElement.querySelector('.perfil__img img');
 const fileInput = document.createElement('input');
 fileInput.type = 'file';
@@ -291,7 +255,6 @@ fileInput.addEventListener('change', (event) => {
       const imageDataURL = reader.result;
       perfilImg.src = imageDataURL;
 
-      // Guarda la imagen en el localStorage
       localStorage.setItem('perfilImage', imageDataURL);
     };
   }

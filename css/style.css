@@ -8,77 +8,7 @@ body {
   --color--sec: #325579;
 }
 
-.navbar-mobile {
-  display: none;
-}
 
-.navbar {
-  position: fixed;
-  background-color: transparent;
-  color: var(--color--sec);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.navbar:hover {
-  background-color: #f5f8fa;
-  /* Agrega un color de fondo en hover */
-}
-
-@media (max-width: 400px) {
-  .navbar {
-    display: none;
-  }
-
-  .navbar-mobile {
-    display: flex;
-    background-color: var(--color--principal);
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .navbar-mobile .navbar__links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    align-items: baseline;
-  }
-
-  .navbar-mobile .navbar__links a {
-    padding: 15px;
-    color: var(--color--sec);
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-
-  .navbar-mobile .navbar__links a:hover {
-    background-color: #1291f6;
-  }
-
-  .navbar-mobile #logout-button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .navbar-mobile #logout-button:hover {
-    background-color: #c0392b;
-  }
-}
 
 .navbar__links {
   width: 16rem;
@@ -162,7 +92,6 @@ body {
 }
 
 .sidebar {
-  position: fixed;
   background-color: #f5f8fa;
   padding: 15px;
   border-radius: 15px;
@@ -367,7 +296,7 @@ body.modo-oscuro {
 .btn-cambiar-modo:hover {
   background-color: #1291f6;
 }
-/* Estilos para el mensaje "Aún no agregaste nada a favoritos" */
+
 .sin-favoritos {
   display: flex;
   flex-direction: column;
@@ -376,24 +305,29 @@ body.modo-oscuro {
   text-align: center;
   margin-top: 20px;
   padding: 20px;
-  background-color: #f8d7da; /* Color de fondo rojo claro para indicar atención */
-  border: 1px solid #f5c6cb; /* Borde rojo más oscuro */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
   border-radius: 8px;
 }
 
 .sin-favoritos i {
-  color: #721c24; /* Color rojo oscuro para el icono de advertencia */
+  color: #721c24;
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-/* Estilos mejorados para el título "Favoritos" */
 .favoritos_title {
   text-align: center;
   margin-top: 30px;
-  font-size: 2.5rem; /* Tamaño grande de fuente */
-  color: #007bff; /* Azul brillante para el color del texto */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para resaltar el texto */
+  font-size: 3rem;
+  font-weight: bold;
+  color: #001f3f;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3)
+}
+
+.btn-modo {
+  background-color: #00A770;
+  margin-top: 30rem;
 }
 
 
@@ -433,6 +367,10 @@ body.modo-oscuro {
 @media(width<993px) {
   body {
     background-color: #00A770;
+  }
+
+  .btn-modo {
+    display: none !important;
   }
 
   .navbar__links {
@@ -498,7 +436,8 @@ body.modo-oscuro {
   body {
     background-color: #1291f6;
   }
-  .form-switch{
+
+  .form-switch {
     display: none;
   }
 
@@ -511,7 +450,6 @@ body.modo-oscuro {
     justify-content: space-around;
     padding: 1rem;
     background-color: #1291f6;
-    /* Ajusta el color de fondo según sea necesario */
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   }
 
@@ -534,12 +472,10 @@ body.modo-oscuro {
     color: var(--color--sec);
     text-decoration: none;
     font-size: 1rem;
-    /* Ajusta el tamaño del texto según sea necesario */
   }
 
   .navbar__links i {
     font-size: 1.5rem;
-    /* Ajusta el tamaño del icono según sea necesario */
   }
 
   .navbar__links__saved a {
@@ -566,7 +502,6 @@ body.modo-oscuro {
   }
 
   #logout-button {
-    /* margin-right: 56px; */
     position: fixed;
     right: 36px;
     bottom: 4px;

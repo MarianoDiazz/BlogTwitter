@@ -1,15 +1,11 @@
-const misFavotitos = JSON.parse(localStorage.getItem("favoritos")) || [];
-console.log(misFavotitos);
-
+const misFavoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 const conteinerTweets = document.querySelector(".tweets-container");
 
 function renderFavoritos() {
-  // Limpiar el contenido existente
   conteinerTweets.innerHTML = '';
 
-  // Verificar si misFavoritos tiene elementos
-  if (misFavotitos.length > 0) {
-    misFavotitos.forEach((tweetsFav) => {
+  if (misFavoritos.length > 0) {
+    misFavoritos.forEach((tweetsFav) => {
       const tweetElement = createPost(tweetsFav);
       conteinerTweets.appendChild(tweetElement);
     });
@@ -26,7 +22,7 @@ function mostrarMensajeSinFavoritos() {
     <i class="fas fa-exclamation-circle"></i>
     <h3>Aún no agregaste nada a favoritos</h3>
   `;
-  
+
   conteinerTweets.appendChild(mensajeSinFavoritos);
 }
 
@@ -40,10 +36,9 @@ function createPost(tweet) {
       <span class="author-name">${tweet.username}</span>
     </div>
     <p class="tweet-text">${tweet.content}</p>
-    ${
-      tweet.image
-        ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image w-100">`
-        : ""
+    ${tweet.image
+      ? `<img src="${tweet.image}" alt="Imagen del Tweet" class="tweet-image w-100">`
+      : ""
     }
     <div class="tweet-actions">
       <span class="tweet-time">${tweet.date}</span>
@@ -52,19 +47,41 @@ function createPost(tweet) {
       <button class="tweet-action fav-action"><i class="fa-solid fa-bookmark"></i></button>
     </div>
   `;
-  
+const tweetDate = misFavoritos.map(tweet => tweet.date);
+
+const tweetsOrdenadosDescendente = [...tweetDate].sort((a, b) => b + a);
+
+tweetsOrdenadosDescendente.forEach(date => {
+  console.log(date);
+});
+
+  const favButton = tweetElement.querySelector('.fav-action');
+
+  favButton.addEventListener('click', () => {
+    console.log("se hizo click");
+
+    const tweetId = tweet.id;
+
+    const updatedFavoritos = misFavoritos.filter(post => post.id !== tweetId);
+
+    localStorage.setItem('favoritos', JSON.stringify(updatedFavoritos));
+
+    renderFavoritos();
+
+    Toastify({
+      text: "Eliminado de favoritos",
+      className: "info",
+      style: {
+        background: "red",
+      }
+    }).showToast();
+  });
+
   return tweetElement;
 }
-
-// Llamar a la función para renderizar favoritos al cargar la página
 renderFavoritos();
-
-
-
-
 const perfilInfoContainer = document.querySelector('.perfil_info');
 
-// Crea el elemento del perfil con backticks
 const perfilInfoElement = document.createElement('div');
 perfilInfoElement.classList.add('perfil__info');
 
@@ -78,10 +95,8 @@ perfilInfoElement.innerHTML = `
     </div>
     <button class="btn btn-outline-danger" id="logout-button"><i class="fas fa-sign-out-alt"></i></button>`;
 
-// Agrega el elemento del perfil al contenedor
 perfilInfoContainer.appendChild(perfilInfoElement);
 
-// Agrega el evento de clic a la imagen de perfil
 const perfilImg = perfilInfoElement.querySelector('.perfil__img img');
 const fileInput = document.createElement('input');
 fileInput.type = 'file';
@@ -96,7 +111,6 @@ perfilImg.addEventListener('click', () => {
     cancelButtonText: 'No',
   }).then((result) => {
     if (result.isConfirmed) {
-      // Si se confirma, abre el explorador de archivos al hacer clic en el input de tipo file
       fileInput.click();
     }
   });
@@ -113,7 +127,6 @@ fileInput.addEventListener('change', (event) => {
       const imageDataURL = reader.result;
       perfilImg.src = imageDataURL;
 
-      // Guarda la imagen en el localStorage
       localStorage.setItem('perfilImage', imageDataURL);
     };
   }
@@ -143,18 +156,13 @@ logout.addEventListener("click", () => {
 });
 
 // modo oscuro
-// Selecciona el interruptor
 const darkModeSwitch = document.querySelector("#darkModeSwitch");
 
-// Añade un event listener para el evento 'change'
 darkModeSwitch.addEventListener("change", function () {
-  // Comprueba si el interruptor está activado
   if (this.checked) {
-    // Si es así, cambia a modo oscuro
     document.body.classList.add("modo-oscuro");
     document.body.classList.remove("modo-claro");
   } else {
-    // Si no, cambia a modo claro
     document.body.classList.remove("modo-oscuro");
     document.body.classList.add("modo-claro");
   }
