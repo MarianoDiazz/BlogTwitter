@@ -261,24 +261,24 @@ fileInput.addEventListener('change', (event) => {
 });
 const logout = perfilInfoElement.querySelector("#logout-button");
 logout.addEventListener("click", () => {
-  console.log("se hizo click");
   Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    title: "¿Estás seguro?",
+    text: "¿Estás seguro de que deseas cerrar sesión?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Sí, cerrar sesión",
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
+        title: "¡Cerrada!",
+        text: "Has cerrado sesión exitosamente.",
         icon: "success",
       });
       localStorage.removeItem("usuario-logeado");
       window.location.href = "./pages/login.html";
     }
   });
+
 });
