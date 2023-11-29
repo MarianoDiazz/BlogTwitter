@@ -1,21 +1,16 @@
-const logoutButton = document.querySelector("#logout-button");
 const publishButton = document.querySelector("#publish-button");
-const addImgButton = document.querySelector("#add-img-button");
 const tweetContent = document.querySelector("#tweet-content");
 const tweetsContainer = document.querySelector(".tweets-container");
+const username = localStorage.getItem("usuario-logeado");
+import { showToast, getLocalStorage, setLocalStorage, defaultPerfilImg,SwalCerrarSesion } from "./usets.js";
 
 
+if (!username) {
+  alert("Debes iniciar sesion primero")
+  window.location.href = '../pages/login.html'
+}
 const subirImagen = document.querySelector('#subir-img');
-// funcion para toastify
-const showToast = (message, className) => {
-  Toastify({
-    text: message,
-    className: className,
-    style: {
-      background: "red",
-    },
-  }).showToast();
-};
+
 
 subirImagen.addEventListener('change', (e) => {
   const confirmarImagen = confirm("¿Deseas cargar la imagen?");
@@ -31,27 +26,20 @@ subirImagen.addEventListener('change', (e) => {
     };
 
     const archivo = e.target.files[0];
+    archivo ? imagenElegida.readAsDataURL(archivo) : showToast("No se seleccionó ninguna imagen", "error");
 
-    if (archivo) {
-      imagenElegida.readAsDataURL(archivo);
-    } else {
-      showToast("No se seleccionó ninguna imagen", "error");
-    }
   } else {
     showToast("Imagen cancelada", "error");
   }
 });
-  displayTweets();
+displayTweets();
 
 
 function getPosts() {
-  const tweetsDefault = JSON.parse(localStorage.getItem("tweetsDefault")) || [];
-  const posts = JSON.parse(localStorage.getItem("posts")) || [];
+  const tweetsDefault = getLocalStorage('tweetsDefault') || [];
+  const posts = getLocalStorage('posts') || [];
   return [...posts, ...tweetsDefault];
 }
-// Aquí defino la URL de la imagen predeterminada para el perfil
-const defaultPerfilImg =
-  "https://img.freepik.com/vector-gratis/avatar-personaje-empresario-aislado_24877-60111.jpg?w=996&t=st=1699501372~exp=1699501972~hmac=51078fb4a29f5608ea71a9185ba340be0fc81f9a41a4ba95697a0d8c52a83ada";
 function displayTweets() {
   const tweets = getPosts();
   console.log(tweets);
@@ -62,10 +50,8 @@ function displayTweets() {
 }
 
 function createPost(postContent, imageUrl, date) {
-  const perfilImg = localStorage.getItem("perfilImage") || defaultPerfilImg;
-  const posts = JSON.parse(localStorage.getItem("posts")) || [];
-  const username = localStorage.getItem("usuario-logeado");
-
+  const perfilImg = localStorage.getItem('perfilImg') || defaultPerfilImg;
+  const posts = getLocalStorage('posts') || [];
   const newPost = {
     username: username,
     content: postContent,
@@ -78,24 +64,23 @@ function createPost(postContent, imageUrl, date) {
   };
 
   posts.unshift(newPost);
-  localStorage.setItem("posts", JSON.stringify(posts));
+  setLocalStorage('posts', posts)
 }
 
 publishButton.addEventListener("click", function (event) {
   event.preventDefault();
 
   const tweetContentValue = tweetContent.value.trim();
-  const tweetImage = localStorage.getItem("imagen");
-  const perfilImg = localStorage.getItem("perfilImage") || defaultPerfilImg;
-  const username = localStorage.getItem("usuario-logeado");
+  const tweetImage = localStorage.getItem('imagen')
+  const perfilImg = localStorage.getItem('perfilImage') || defaultPerfilImg;
 
   if (tweetContentValue === "" && !tweetImage) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "No puedes publicar un post vacio!",
-    });  
-      return;
+    });
+    return;
   }
   const tweet = {
     content: tweetContentValue,
@@ -152,60 +137,64 @@ function createTweetElement(tweet) {
   const favButton = tweetElement.querySelector('.fav-action')
   favButton.addEventListener('click', () => {
     const tweetId = tweet.id;
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const posts = getLocalStorage('posts') || [];
     const updatedPosts = posts.map(post => {
       if (post.id === tweetId) {
         post.isFav = true;
       }
       return post;
     });
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+    setLocalStorage('posts', updatedPosts)
     guardarTweet(tweet);
 
-    Toastify({
-      text: "Añadido a favoritos",
-      className: "info",
-      style: {
-        background: "red",
-      }
-    }).showToast();
+    showToast("Se añadió a favoritos", "success");
   });
 
   return tweetElement;
 }
 
 function guardarTweet(tweet) {
-  let tweetsGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
+  let tweetsGuardados = getLocalStorage("favoritos") || [];
   tweetsGuardados.unshift(tweet);
   // Guardar el array en LS
-  localStorage.setItem('favoritos', JSON.stringify(tweetsGuardados));
-  const posts = JSON.parse(localStorage.getItem('posts')) || [];
+  setLocalStorage('favoritos', tweetsGuardados)
+  const posts = getLocalStorage('posts') || [];
   const updatedPosts = posts.map(post => {
     if (post.id === tweet.id) {
       post.isFav = true;
     }
     return post;
   });
-  localStorage.setItem('posts', JSON.stringify(updatedPosts));
+  setLocalStorage('posts', updatedPosts)
 }
-// modo oscuro
 const darkModeSwitch = document.querySelector("#darkModeSwitch");
+
+// Verificar si el modo oscuro está activado en el localStorage al cargar la página
+if (localStorage.getItem("modoOscuro") === "activado") {
+  document.body.classList.add("modo-oscuro");
+  darkModeSwitch.checked = true;
+}
 
 darkModeSwitch.addEventListener("change", function () {
   if (this.checked) {
     document.body.classList.add("modo-oscuro");
     document.body.classList.remove("modo-claro");
+    // Guardar el estado en el localStorage
+    localStorage.setItem("modoOscuro", "activado");
   } else {
     document.body.classList.remove("modo-oscuro");
     document.body.classList.add("modo-claro");
+    // Guardar el estado en el localStorage
+    localStorage.removeItem("modoOscuro");
   }
 });
+
 
 const URL = "https://655fed2983aba11d99cffa88.mockapi.io/tweets/usersTweets";
 
 fetch(URL)
   .then((respuesta) => respuesta.json())
-  .then((data) => localStorage.setItem("tweetsDefault", JSON.stringify(data)))
+  .then((data) => setLocalStorage('tweetsDefault', data))
   .catch((error) => console.log(error));
 
 const perfilInfoContainer = document.querySelector('.perfil_info');
@@ -218,8 +207,8 @@ perfilInfoElement.innerHTML = `
       <img  src="${localStorage.getItem('perfilImage') || defaultPerfilImg}" alt="Imagen de perfil">
     </div>
     <div class="perfil__details">
-      <h3>${localStorage.getItem('usuario-logeado') || 'Nombre predeterminado'}</h3>
-      <p>${localStorage.getItem('usuario-logeado-mail') || 'Correo predeterminado'}</p>
+      <h3>${localStorage.getItem('usuario-logeado')}</h3>
+      <p>${localStorage.getItem('usuario-logeado-mail')}'}</p>
     </div>
     <button class="btn btn-outline-danger" id="logout-button"><i class="fas fa-sign-out-alt"></i></button>`;
 
@@ -259,26 +248,9 @@ fileInput.addEventListener('change', (event) => {
     };
   }
 });
+
+// Cerrar Sesion
 const logout = perfilInfoElement.querySelector("#logout-button");
 logout.addEventListener("click", () => {
-  Swal.fire({
-    title: "¿Estás seguro?",
-    text: "¿Estás seguro de que deseas cerrar sesión?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, cerrar sesión",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "¡Cerrada!",
-        text: "Has cerrado sesión exitosamente.",
-        icon: "success",
-      });
-      localStorage.removeItem("usuario-logeado");
-      window.location.href = "./pages/login.html";
-    }
-  });
-
+  SwalCerrarSesion()
 });

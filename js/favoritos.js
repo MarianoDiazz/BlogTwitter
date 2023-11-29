@@ -1,5 +1,6 @@
 const misFavoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 const conteinerTweets = document.querySelector(".tweets-container");
+import { defaultPerfilImg } from "./usets.js";
 
 function renderFavoritos() {
   conteinerTweets.innerHTML = '';
@@ -47,13 +48,13 @@ function createPost(tweet) {
       <button class="tweet-action fav-action"><i class="fa-solid fa-bookmark"></i></button>
     </div>
   `;
-const tweetDate = misFavoritos.map(tweet => tweet.date);
+  const tweetDate = misFavoritos.map(tweet => tweet.date);
 
-const tweetsOrdenadosDescendente = [...tweetDate].sort((a, b) => b + a);
+  const tweetsOrdenadosDescendente = [...tweetDate].sort((a, b) => b + a);
 
-tweetsOrdenadosDescendente.forEach(date => {
-  console.log(date);
-});
+  tweetsOrdenadosDescendente.forEach(date => {
+    // console.log(date);
+  });
 
   const favButton = tweetElement.querySelector('.fav-action');
 
@@ -133,24 +134,23 @@ fileInput.addEventListener('change', (event) => {
 });
 const logout = perfilInfoElement.querySelector("#logout-button");
 logout.addEventListener("click", () => {
-  console.log("se hizo click");
   Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
+    title: "¿Estás seguro?",
+    text: "¿Estás seguro de que deseas cerrar sesión?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Sí, cerrar sesión",
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: "Deleted!",
-        text: "Your file has been deleted.",
+        title: "¡Cerrada!",
+        text: "Has cerrado sesión exitosamente.",
         icon: "success",
       });
       localStorage.removeItem("usuario-logeado");
-      window.location.href = "./pages/login.html";
+      window.location.href = "./login.html";
     }
   });
 });
@@ -167,3 +167,5 @@ darkModeSwitch.addEventListener("change", function () {
     document.body.classList.add("modo-claro");
   }
 });
+import { mensaje } from "./usets.js";
+mensaje()
