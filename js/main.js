@@ -7,7 +7,7 @@ import { showToast, getLocalStorage, setLocalStorage, defaultPerfilImg,SwalCerra
 
 if (!username) {
   alert("Debes iniciar sesion primero")
-  window.location.href = '../pages/login.html'
+  window.location.href = "./pages/login.html";
 }
 const subirImagen = document.querySelector('#subir-img');
 
