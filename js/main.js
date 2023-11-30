@@ -5,10 +5,10 @@ const username = localStorage.getItem("usuario-logeado");
 import { showToast, getLocalStorage, setLocalStorage, defaultPerfilImg,SwalCerrarSesion } from "./usets.js";
 
 
-if (!username) {
-  alert("Debes iniciar sesion primero")
-  window.location.href = "pages/login.html";
-}
+// if (!username) {
+//   alert("Debes iniciar sesion primero")
+//   window.location.href = "pages/login.html";
+// }
 const subirImagen = document.querySelector('#subir-img');
 
 
